@@ -21,34 +21,51 @@ const styles = theme => ({
   }
 })
 
-const customers = [
-  {
-  'id' :  1,
-  'image' : './logo.svg',
-  'name'  :   '이영민1',
-  'birthday'  :   '111111',
-  'gender'    :   '남자',
-  'job'       :   '대학생'
-  },
-  {
-    'id' :  2,
-    'image' : './logo.svg',
-    'name'  :   '이영민2',
-    'birthday'  :   '222222',
-    'gender'    :   '남자',
-    'job'       :   '대학생'
-  },
-  {
-      'id' :  3,
-      'image' : './logo.svg',
-      'name'  :   '이영민',
-      'birthday'  :   '333333',
-      'gender'    :   '남자',
-      'job'       :   '대학생'
-   }
-]
+// const customers = [
+//   {
+//   'id' :  1,
+//   'image' : './logo.svg',
+//   'name'  :   '이영민1',
+//   'birthday'  :   '111111',
+//   'gender'    :   '남자',
+//   'job'       :   '대학생'
+//   },
+//   {
+//     'id' :  2,
+//     'image' : './logo.svg',
+//     'name'  :   '이영민2',
+//     'birthday'  :   '222222',
+//     'gender'    :   '남자',
+//     'job'       :   '대학생'
+//   },
+//   {
+//       'id' :  3,
+//       'image' : './logo.svg',
+//       'name'  :   '이영민',
+//       'birthday'  :   '333333',
+//       'gender'    :   '남자',
+//       'job'       :   '대학생'
+//    }
+// ]
 
 class App extends Component {
+
+  state = {
+    customers: ""
+  }
+  //Component 생명주기이 잇으며 Mount가 다 되었을때 실행되는 함수임
+  componentDidMount() {
+    this.callApi()
+      .then(res => this.setState({customers: res}))
+      .catch(err => console.log(err));
+  }
+
+  callApi = async () => {
+      const response = await fetch('/api/customers');
+      const body = await response.json();
+      return body;
+  }
+
   render() {
     const { classes } = this.props; //이건 위에 스타일 정의한 값들을 따른다?
     return (
@@ -63,21 +80,20 @@ class App extends Component {
               <TableCell>직업</TableCell>
           </TableHead>
           <TableBody>
-            {
-              customers.map(c => {
-                return (
-                  <Customer
-                    key={c.id}  //key = PK라 생각하자
-                    id={c.id}
-                    image={c.image}
-                    name={c.name}
-                    birthday={c.birthday}
-                    gender={c.gender}
-                    job={c.job}
-                  />
-                );
-              })
-            }
+            {this.state.customers ? this.state.customers.map(c => {
+              return (
+                <Customer
+                  key={c.id}  //key = PK라 생각하자
+                  id={c.id}
+                  image={c.image}
+                  name={c.name}
+                  birthday={c.birthday}
+                  gender={c.gender}
+                  job={c.job}
+                />
+              );
+            })
+            : "" }
           </TableBody>
         </Table>
       </Paper>  
