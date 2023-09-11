@@ -8,6 +8,7 @@ import TableBody from '@material-ui/core/TableBody'
 import TableRow from '@material-ui/core/TableRow'
 import TableCell from '@material-ui/core/TableCell'
 import {withStyles} from '@material-ui/core/styles'
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 //스타일 클래스명 root, table 정의?
 const styles = theme => ({
@@ -18,6 +19,9 @@ const styles = theme => ({
   },
   table: {
     minWidth: 1080
+  },
+  progress: {
+    margin: theme.spacing.unit * 2
   }
 })
 
@@ -48,13 +52,25 @@ const styles = theme => ({
 //    }
 // ]
 
+
+// React의 동작순서
+// 1) constructor()
+// 2) componentWillMount() 컴포넌트 전
+// 3) render() -> 실제 컴포넌트 실행
+// 4) componentDidMount() 컴포넌트 후
+// 5) props or state => shoulComponentUpdate() 상태값 변경시 render()를 재실행
+
+
 class App extends Component {
 
   state = {
-    customers: ""
+    customers: "",
+    completed: 0 
   }
+
   //Component 생명주기이 잇으며 Mount가 다 되었을때 실행되는 함수임
   componentDidMount() {
+    this.timer = setInterval(this.progress, 100);
     this.callApi()
       .then(res => this.setState({customers: res}))
       .catch(err => console.log(err));
@@ -64,6 +80,11 @@ class App extends Component {
       const response = await fetch('/api/customers');
       const body = await response.json();
       return body;
+  }
+
+  progress = () => {
+    const { completed } = this.state;
+    this.setState({ completed: completed >= 100 ? 0 : completed + 4});
   }
 
   render() {
@@ -93,7 +114,13 @@ class App extends Component {
                 />
               );
             })
-            : "" }
+            : 
+            <TableRow>
+              <TableCell colspan="6" align="center">
+                <CircularProgress className={classes.progress} variant="determinate" value={this.state.completed}/>
+              </TableCell>
+            </TableRow>
+             }
           </TableBody>
         </Table>
       </Paper>  

@@ -11,7 +11,7 @@ app.get('/api/customers', (req, res) => {
         {
         'id' :  1,
         'image' : './logo.svg',
-        'name'  :   '이영민121',
+        'name'  :   '가',
         'birthday'  :   '111111',
         'gender'    :   '남자',
         'job'       :   '대학생'
@@ -19,7 +19,7 @@ app.get('/api/customers', (req, res) => {
         {
           'id' :  2,
           'image' : './logo.svg',
-          'name'  :   '이영민2',
+          'name'  :   '나',
           'birthday'  :   '222222',
           'gender'    :   '남자',
           'job'       :   '대학생'
@@ -27,7 +27,7 @@ app.get('/api/customers', (req, res) => {
         {
             'id' :  3,
             'image' : './logo.svg',
-            'name'  :   '이영민',
+            'name'  :   '다',
             'birthday'  :   '333333',
             'gender'    :   '남자',
             'job'       :   '대학생'
