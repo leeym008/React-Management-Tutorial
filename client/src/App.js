@@ -64,9 +64,24 @@ const styles = theme => ({
 
 class App extends Component {
 
-  state = {
-    customers: "",
-    completed: 0 
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      customers: '',
+      compolted: 0
+    }
+  }
+
+  //고객 추가 후 목록만 새로고침
+  stateRefresh = () => {
+    this.setState({
+      customers: '',
+      completed: 0
+    });
+    this.callApi()
+      .then(res => this.setState({customers: res}))
+      .catch(err => console.log(err));
   }
 
   //Component 생명주기이 잇으며 Mount가 다 되었을때 실행되는 함수임
@@ -126,7 +141,7 @@ class App extends Component {
             </TableBody>
           </Table>
         </Paper>
-        <CustomerAdd>
+        <CustomerAdd stateRefresh={this.stateRefresh}>
 
         </CustomerAdd>
       </div>
