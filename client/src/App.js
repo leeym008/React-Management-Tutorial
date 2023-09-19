@@ -11,6 +11,9 @@ import TableCell from '@material-ui/core/TableCell'
 import {withStyles} from '@material-ui/core/styles'
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+import BarChart from './components/BarChart';
+
+
 //스타일 클래스명 root, table 정의?
 const styles = theme => ({
   root: {
@@ -26,34 +29,6 @@ const styles = theme => ({
   }
 })
 
-// const customers = [
-//   {
-//   'id' :  1,
-//   'image' : './logo.svg',
-//   'name'  :   '이영민1',
-//   'birthday'  :   '111111',
-//   'gender'    :   '남자',
-//   'job'       :   '대학생'
-//   },
-//   {
-//     'id' :  2,
-//     'image' : './logo.svg',
-//     'name'  :   '이영민2',
-//     'birthday'  :   '222222',
-//     'gender'    :   '남자',
-//     'job'       :   '대학생'
-//   },
-//   {
-//       'id' :  3,
-//       'image' : './logo.svg',
-//       'name'  :   '이영민',
-//       'birthday'  :   '333333',
-//       'gender'    :   '남자',
-//       'job'       :   '대학생'
-//    }
-// ]
-
-
 // React의 동작순서
 // 1) constructor()
 // 2) componentWillMount() 컴포넌트 전
@@ -61,9 +36,7 @@ const styles = theme => ({
 // 4) componentDidMount() 컴포넌트 후
 // 5) props or state => shoulComponentUpdate() 상태값 변경시 render()를 재실행
 
-
 class App extends Component {
-
 
   constructor(props) {
     super(props);
@@ -146,6 +119,7 @@ class App extends Component {
         <CustomerAdd stateRefresh={this.stateRefresh}>
 
         </CustomerAdd>
+        <BarChart />
       </div>
     );
   }

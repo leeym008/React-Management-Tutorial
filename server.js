@@ -46,6 +46,8 @@ const upload = multer({dest: './upload'})
 app.use('/image', express.static('./upload'));
 
 app.post('/api/customersAdd', upload.single('image'), (req, res) => {
+
+    
     let image = 'http://localhost:5000/image/' + req.file.filename;  //multer 라이브러리가 UUID처럼 겹치지 않은 이름값을 설정해줌
     let userName = req.body.userName;
     let birthday = req.body.birthday;
