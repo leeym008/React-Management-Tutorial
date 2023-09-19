@@ -11,7 +11,7 @@ import TableCell from '@material-ui/core/TableCell'
 import {withStyles} from '@material-ui/core/styles'
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import BarChart from './components/BarChart';
+import ScatterChart from './components/ScatterChart';
 
 
 //스타일 클래스명 root, table 정의?
@@ -119,7 +119,7 @@ class App extends Component {
         <CustomerAdd stateRefresh={this.stateRefresh}>
 
         </CustomerAdd>
-        <BarChart />
+        <ScatterChart />
       </div>
     );
   }
