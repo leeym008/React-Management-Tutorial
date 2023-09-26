@@ -60,7 +60,7 @@ class App extends Component {
   //Component 생명주기이 잇으며 Mount가 다 되었을때 실행되는 함수임
   componentDidMount() {
     this.timer = setInterval(this.progress, 100);
-    this.callApi()
+      this.callApi()
       .then(res => this.setState({customers: res}))
       .catch(err => console.log(err));
   }
@@ -119,7 +119,8 @@ class App extends Component {
         <CustomerAdd stateRefresh={this.stateRefresh}>
 
         </CustomerAdd>
-        <ScatterChart />
+
+         <ScatterChart/>
       </div>
     );
   }
