@@ -20,6 +20,7 @@ const config = {
     port: conf.port,
     options: {
         encrypt: false,
+        useUTC: conf.useUTC,
     },
 };
 
@@ -164,12 +165,15 @@ app.get('/api/scatterData', (req, res) => {
           if (err) console.log(err);
           const data = [];
           for (let i = 0; i<result.recordset.length; i++) {
-            //console.log(result.recordset[i]['X'] + ', ' + result.recordset[i]['Y']);
-            const x = result.recordset[i]['X'];
+            console.log(result.recordset[i]['X'] + ', ' + result.recordset[i]['Y']);    //숫자 -> 문자열로 변환되면서 +9시간이 붙음
+            const x = result.recordset[i]['X']; //숫자
+            console.log(x);
+            console.log('------');
             const y = result.recordset[i]['Y'];
             data.push([x, y]);
           }
           res.json(data);
+          console.log(data);
         });
         
         //api 응답속도 기록

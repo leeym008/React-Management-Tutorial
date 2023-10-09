@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import * as echarts from 'echarts'
 import axios from 'axios';
+import moment from 'moment'; // Moment.js 라이브러리
 
 function ScatterChart() {
   const [data, setData] = useState([]);
@@ -21,7 +22,6 @@ function ScatterChart() {
     // 데이터가 업데이트될 때마다 Scatter 그래프 그리기
     const chartContainer = document.getElementById('scatter-chart');
     const myChart = echarts.init(chartContainer);
-
     const option = {
       title: {
         text: 'API Response',
@@ -39,16 +39,15 @@ function ScatterChart() {
         {
           type: 'scatter',
           data: data, // 서버에서 받은 데이터를 사용
-          symbolSize: 10, // 데이터 포인트 크기 설정 (선택 사항)
-          /* 
-          툴팁 작동이 안된다 ㅠㅠ
+          symbolSize: 15, // 데이터 포인트 크기 설정 (선택 사항)
+          //툴팁 작동이 안된다 ㅠㅠ
           tooltip: {
             formatter: function (params) {
               // 툴팁 내용을 설정합니다.
               return '11'; // 세 번째 열에 툴팁 내용이 저장되어 있다고 가정합니다.
             },
           },
-           */
+
         },
       ],
     };
