@@ -45,12 +45,12 @@ app.use('/api', (req, res, next) => {
         .then(result => {
             console.log('return seq : ' + result.output.responseSeq);
             req.responseSeq = result.output.responseSeq;
-            mssql.close();
+            //mssql.close();
             next();
         })
     });
     },
-
+/* 
     (req, res, next) => {
         console.log('second middleware!');
         console.log(`두번째 미들웨어 responseSeq : ' + ${req.responseSeq}`);
@@ -62,7 +62,7 @@ app.use('/api', (req, res, next) => {
         console.log('thrid middleware!');
         next();
     }
-
+ */
 );
 
 
@@ -89,7 +89,7 @@ app.get('/api/customers', (req, res) => {
         request.query(apiUpdSql, (err, result) => {
             if (err) console.log(err);
             console.log(`${req.originalUrl} + API UPD 요청 완료 : ' + ${req.responseSeq}`);
-            mssql.close();
+            //mssql.close();
         });
     });
 });
@@ -122,7 +122,7 @@ app.post('/api/customersAdd', upload.single('image'), (req, res) => {
             if (err) console.log(err);
             console.log("결과값: " + result);
             res.send(result.recordset);
-            mssql.close();
+            //mssql.close();
         });
     });
 })
@@ -140,7 +140,7 @@ app.delete('/api/customers/:id', (req, res) => {
             if (err) console.log(err);
             console.log("결과값: " + result);
             res.send(result.recordset);
-            mssql.close();
+            //mssql.close();
         });
     });
 
@@ -154,10 +154,8 @@ app.listen(port, () =>
 app.use(express.json());
 
 app.get('/api/scatterData', (req, res) => {
-  // 가짜 데이터 생성 (실제 데이터베이스에서 데이터를 가져오는 대신 사용)
-  //let sql = 'SELECT TOP 100 * FROM API_RESPONSE ORDER BY SEQ DESC';
   console.log(`api/scatterData에서 받아온 responseSeq : ' + ${req.responseSeq}`);
-  let sql = `SELECT TOP 100 reqTime AS X, ISNULL(responseSpeed, 9999) AS Y FROM API_RESPONSE WHERE seq != ${req.responseSeq} ORDER BY SEQ DESC`;
+  let sql = `SELECT TOP 100 reqTime AS X, ISNULL(responseSpeed, 9999) AS Y FROM API_RESPONSE WHERE seq != ${req.responseSeq} AND DATEDIFF(SECOND, resTime, getDate()) <= 7200 ORDER BY SEQ DESC`;
 
   mssql.connect(config, err => {
       if (err) console.log('에러' + err);
@@ -179,7 +177,7 @@ app.get('/api/scatterData', (req, res) => {
         request.query(apiUpdSql, (err, result) => {
             if (err) console.log(err);
             console.log(`${req.originalUrl} + API UPD 요청 완료 : ' + ${req.responseSeq}`);
-            mssql.close();
+            //mssql.close();
         });
       });
   });
