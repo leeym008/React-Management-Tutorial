@@ -104,7 +104,7 @@ class CustomerAdd extends React.Component {
 
         return (
             <div>
-                <Button variant="contained" color="primary" onClick={this.handleClickOpen}>고객 추가하기</Button>
+                <Button variant="contained" color="primary" onClick={this.handleClickOpen}>사용자 추가하기</Button>
                 <Dialog open={this.state.open} onClose={this.handleClose}>
                     <DialogTitle>추가</DialogTitle>
                     <DialogContent>
